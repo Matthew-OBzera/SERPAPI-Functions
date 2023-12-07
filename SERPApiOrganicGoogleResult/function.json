@@ -1,0 +1,25 @@
+{
+    "bindings": [
+      {
+        "name": "msg",
+        "queueName": "keywordsearches",
+        "connection": "AzureWebJobsStorage",
+        "direction": "in",
+        "type": "queueTrigger"
+      },
+      {
+        "name": "msg",
+        "direction": "out",
+        "type": "queue",
+        "connection": "AzureWebJobsStorage",
+        "queueName": "keywordsearches"
+      },
+      {
+        "name": "msg",
+        "direction": "out",
+        "type": "queue",
+        "connection": "AzureWebJobsStorage",
+        "queueName": "keywordsearches"
+      }
+    ]
+  }
