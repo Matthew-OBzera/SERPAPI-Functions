@@ -16,38 +16,28 @@ def main(req: func.HttpRequest, msg: func.Out[func.QueueMessage]) -> func.HttpRe
 
     content = json.loads(req_body)
 
-    keywords = content["keywords"]
-    location = content["location"]
+    keywords = content["keyword"]
     device = content["gl"]
     gl = content["gl"]
     hl = content["hl"]
 
+    processKeywords(keywords, device, gl, hl)
     return func.HttpResponse(
         "This HTTP triggered function executed successfully.",
         status_code=200
     )
 
-def processKeywords(keywords, location, device, gl, hl):
+def processKeywords(keyword, device = 'desktop', gl = 'us', hl = 'en'):
     # SerpApi search
     search = GoogleSearch({
         "engine" : "google",
-        "location": location,
         "gl" : gl,
         "hl" : hl,
         "device" : device,
         "async": True,
         "api_key": ""
     })
-
-    # loop through a list of companies
-    for keyword in keywords:
-        print("execute async search: q = " + keyword)
-        search.params_dict["q"] = keyword
-        result = search.get_dict()
-        if "error" in result:
-            print("error: ", result["error"])
-            continue
-        # add search to the search_queue
-        msg.set(result['search_metadata']['id'])
+    result = search.get_dict()
+    msg.set(result['search_metadata']['id'])
 
     print("wait until all search statuses are cached or success")
