@@ -2,7 +2,7 @@
     "bindings": [
       {
         "name": "req",
-        "authLevel": "function",
+        "authLevel": "anonymous",
         "methods": [
           "post"
         ],

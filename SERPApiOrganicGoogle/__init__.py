@@ -16,26 +16,27 @@ def main(req: func.HttpRequest, msg: func.Out[func.QueueMessage]) -> func.HttpRe
 
     content = json.loads(req_body)
 
-    keywords = content["keyword"]
-    device = content["gl"]
+    keyword = content["keyword"]
+    device = content["device"]
     gl = content["gl"]
     hl = content["hl"]
 
-    processKeywords(keywords, device, gl, hl)
+    processKeywords(msg, keyword, device, gl, hl)
     return func.HttpResponse(
         "This HTTP triggered function executed successfully.",
         status_code=200
     )
 
-def processKeywords(keyword, device = 'desktop', gl = 'us', hl = 'en'):
+def processKeywords(msg, keyword, device = 'desktop', gl = 'us', hl = 'en'):
     # SerpApi search
     search = GoogleSearch({
+        "q" : keyword, 
         "engine" : "google",
         "gl" : gl,
         "hl" : hl,
         "device" : device,
         "async": True,
-        "api_key": ""
+        "api_key": "22cf33864512bf7f490a937d3aed585f0c6ebf76a40c48dfdf3c9c203d29d52f"
     })
     result = search.get_dict()
     msg.set(result['search_metadata']['id'])

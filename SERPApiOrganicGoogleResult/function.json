@@ -8,14 +8,7 @@
         "type": "queueTrigger"
       },
       {
-        "name": "msg",
-        "direction": "out",
-        "type": "queue",
-        "connection": "AzureWebJobsStorage",
-        "queueName": "keywordsearches"
-      },
-      {
-        "name": "msg",
+        "name": "remsg",
         "direction": "out",
         "type": "queue",
         "connection": "AzureWebJobsStorage",
